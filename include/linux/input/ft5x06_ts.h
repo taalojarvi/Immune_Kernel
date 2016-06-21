@@ -76,11 +76,40 @@ struct ft5x06_ts_platform_data {
 	bool no_force_update;
 	bool i2c_pull_up;
 	bool ignore_id_check;
-	bool psensor_support;
-	bool gesture_support;
-	bool resume_in_workqueue;
-	int (*power_init)(bool);
-	int (*power_on)(bool);
+	int (*power_init) (bool);
+	int (*power_on) (bool);
+};
+
+struct ft5x06_ts_data {
+	struct i2c_client *client;
+	struct input_dev *input_dev;
+	const struct ft5x06_ts_platform_data *pdata;
+	struct regulator *vdd;
+	struct regulator *vcc_i2c;
+	char fw_name[FT_FW_NAME_MAX_LEN];
+	u8 lockdown_info[FT_LOCKDOWN_SIZE];
+	bool loading_fw;
+	u8 family_id;
+	struct dentry *dir;
+	u16 addr;
+	bool suspended;
+#ifdef CONFIG_TOUCHSCREEN_PREVENT_SLEEP
+	bool prevent_sleep;
+#endif
+	char *ts_info;
+	u8 *tch_data;
+	u32 tch_data_len;
+	u8 fw_ver[3];
+	u8 fw_vendor_id;
+#if defined(CONFIG_FB)
+	struct notifier_block fb_notif;
+	struct work_struct fb_notify_work;
+#elif defined(CONFIG_HAS_EARLYSUSPEND)
+	struct early_suspend early_suspend;
+#endif
+	struct pinctrl *ts_pinctrl;
+	struct pinctrl_state *gpio_state_active;
+	struct pinctrl_state *gpio_state_suspend;
 };
 
 #endif
