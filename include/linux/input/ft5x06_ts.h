@@ -76,6 +76,11 @@ struct ft5x06_ts_platform_data {
 	bool no_force_update;
 	bool i2c_pull_up;
 	bool ignore_id_check;
+	bool psensor_support;
+	bool gesture_support;
+	bool resume_in_workqueue;
+	int (*power_init)(bool);
+	int (*power_on)(bool);
 	int (*power_init) (bool);
 	int (*power_on) (bool);
 };
