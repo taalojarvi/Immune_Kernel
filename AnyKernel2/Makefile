@@ -1,4 +1,4 @@
-NAME ?= Immne™-wt88047
+NAME ?= KILLA™-wt88047
 
 DATE := $(shell date +'%Y%m%d-%H%M')
 
