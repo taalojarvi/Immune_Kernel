@@ -79,8 +79,6 @@ struct ft5x06_ts_platform_data {
 	bool psensor_support;
 	bool gesture_support;
 	bool resume_in_workqueue;
-	int (*power_init)(bool);
-	int (*power_on)(bool);
 	int (*power_init) (bool);
 	int (*power_on) (bool);
 };
